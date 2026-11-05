@@ -1,10 +1,120 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>1LYNOKIVYDOL!</title>
+  <title>LYKHVGJFH7_-4$</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Courier New', monospace;
+      background: #0d0d0d;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 24px;
+    }
+    #dec-key-raw {
+      position: absolute;
+      width: 1px; height: 1px;
+      overflow: hidden; opacity: 0; pointer-events: none;
+    }
+    .logo { font-size: 11px; color: #333; letter-spacing: 4px; text-transform: uppercase; }
+    .card {
+      background: #111; border: 1px solid #222; border-radius: 12px;
+      padding: 26px 34px; width: 100%; max-width: 540px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .card-header { display: flex; align-items: center; gap: 10px; }
+    .badge {
+      font-size: 10px; letter-spacing: 2px; padding: 3px 8px;
+      border-radius: 4px; text-transform: uppercase;
+    }
+    .badge-pass { background:#1a2a1a; color:#6fcf6f; border:1px solid #2a4a2a; }
+    .badge-key  { background:#1a1a2a; color:#6fa0cf; border:1px solid #2a2a4a; }
+    .card-title { font-size: 12px; color: #555; }
+    .field-row {
+      display: flex; align-items: center; gap: 10px;
+      background: #0a0a0a; border: 1px solid #1e1e1e;
+      border-radius: 8px; padding: 13px 16px;
+    }
+    .field-value { flex: 1; font-size: 17px; word-break: break-all; user-select: all; }
+    .pass-val { color: #6fcf6f; }
+    .key-val  { color: #6fa0cf; }
+    .copy-btn {
+      background: none; border: 1px solid #2a2a2a; border-radius: 6px;
+      color: #555; cursor: pointer; font-size: 11px; padding: 5px 12px;
+      transition: all .15s; white-space: nowrap; font-family: inherit; flex-shrink: 0;
+    }
+    .copy-btn:hover { border-color:#aaa; color:#aaa; }
+    .done-pass { border-color:#6fcf6f !important; color:#6fcf6f !important; }
+    .done-key  { border-color:#6fa0cf !important; color:#6fa0cf !important; }
+    .hint { font-size: 11px; color: #333; line-height: 1.8; }
+    .hint code { color: #444; }
+    .divider { border: none; border-top: 1px solid #1a1a1a; margin: 2px 0; }
+    .dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+    .dot-green { background:#6fcf6f; animation:blink 2s infinite; }
+    .dot-blue  { background:#6fa0cf; animation:blink 2s infinite .6s; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+  </style>
 </head>
 <body>
-  1LYNOKIVYDOL!
+
+<!-- split()[1] = مفتاح فك تشفير الإجابات — يتجيب تلقائياً، المستخدم لا يراه -->
+<span id="dec-key-raw">E1IlmCLPCmkN1RnlS4lctQ2oIeUXX4N1</span>
+
+<div class="logo">LYNIKV TOOL Qr &mdash; Key Server</div>
+
+<!-- كلمة المرور — split()[0] — يطلبها الشخص يدوياً -->
+<div class="card">
+  <div class="card-header">
+    <span class="dot dot-green"></span>
+    <span class="badge badge-pass">password</span>
+    <span class="card-title">كلمة مرور الأداة — يُطلب إدخالها من المستخدم</span>
+  </div>
+  <div class="field-row">
+    <span class="field-value pass-val" id="pass-display">TOOL_PASSWORD_HERE</span>
+    <button class="copy-btn" onclick="cp('pass-display','done-pass',this)">نسخ</button>
+  </div>
+  <hr class="divider">
+  <div class="hint">
+    <code>split()[0]</code> — أول كلمة في الصفحة عبر <code>&lt;title&gt;</code>.<br>
+    الأداة تجيبها وتطلب من المستخدم يكتبها — لو غلط ما بيشتغلش.
+  </div>
+</div>
+
+<!-- مفتاح فك التشفير — split()[1] — تلقائي، لا يراه المستخدم -->
+<div class="card">
+  <div class="card-header">
+    <span class="dot dot-blue"></span>
+    <span class="badge badge-key">decrypt key</span>
+    <span class="card-title">مفتاح فك تشفير الإجابات — تلقائي، لا يراه المستخدم</span>
+  </div>
+  <div class="field-row">
+    <span class="field-value key-val" id="key-display">ANSWERS_DECRYPT_KEY_HERE</span>
+    <button class="copy-btn" onclick="cp('key-display','done-key',this)">نسخ</button>
+  </div>
+  <hr class="divider">
+  <div class="hint">
+    <code>split()[1]</code> — الكلمة الثانية بعد شيل الـ HTML.<br>
+    الأداة تجيبه من السيرفر وتفك بيه التشفير في الـ RAM مباشرةً — المستخدم لا يدخله أبداً.
+  </div>
+</div>
+
+<script>
+  document.getElementById('key-display').textContent =
+    document.getElementById('dec-key-raw').textContent.trim();
+
+  function cp(id, cls, btn) {
+    navigator.clipboard.writeText(document.getElementById(id).textContent.trim()).then(() => {
+      btn.textContent = 'تم ✓'; btn.classList.add(cls);
+      setTimeout(() => { btn.textContent = 'نسخ'; btn.classList.remove(cls); }, 2000);
+    });
+  }
+</script>
+
 </body>
 </html>
